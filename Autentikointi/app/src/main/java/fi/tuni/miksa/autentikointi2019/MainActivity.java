@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -23,12 +24,28 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     private final String TAG = "softa";
 
+    //osa 2
+    FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //osa 1
         mAuth = FirebaseAuth.getInstance();
+
+
+        //osa2
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                Log.d(TAG, "tilamuuttui");
+                if (user != null) {
+                    // Sign in logic here.
+                }
+            }
+        };
 
     }
     //osa1
@@ -114,4 +131,25 @@ public class MainActivity extends AppCompatActivity {
         // [END auth_fui_signout]
     }
 
+    //osa 2
+    public void kirjautumisenTila(View view) {
+        Log.d(TAG, "tilakysely");
+        checkCurrentUser();
+    }
+
+    //osa 2
+    public void checkCurrentUser() {
+        // [START check_current_user]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        TextView textView = findViewById(R.id.textView);
+        if (user != null) {
+            textView.setText("sisällä");
+
+            // User is signed in
+        } else {
+            textView.setText("Ei kirjautunut");
+            // No user is signed in
+        }
+        // [END check_current_user]
+    }
 }
