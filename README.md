@@ -1,5 +1,5 @@
 # FirebaseAutentikointi2019
-Tutoriaali autentikoinnin lisäykseen
+Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja testauksen autentikointiin ja tietokantaan. **Osa 2** käsittelee autetnikoinnin tilatietojen tarkastelua.
 
 ## Oheismateriaali ja muut huomiot
 * [https://firebase.google.com/docs/auth/android/password-auth](https://firebase.google.com/docs/auth/android/password-auth)
