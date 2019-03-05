@@ -65,3 +65,51 @@ Tutoriaali autentikoinnin lisäykseen
 * Jos kaikki meni oikein niin [https://console.firebase.google.com](https://console.firebase.google.com) Authentication ja Users. Listassa pitäisi näkyä antamasi tiedot...
 * Jos ei näy - niin LogCat:stä etsimään virhettä.
 
+
+## Osa 2
+* Lisätään tilan tutkimiseen muutamia komponentteja
+* kirjautumisenTila -nappula ja siihen liittyvät muuttujat
+```java
+    //osa 2
+    FirebaseAuth.AuthStateListener mAuthListener;
+```
+* ja metodit
+```java
+    //osa 2
+    public void kirjautumisenTila(View view) {
+        Log.d(TAG, "tilakysely");
+        checkCurrentUser();
+    }
+
+    //osa 2
+    public void checkCurrentUser() {
+        // [START check_current_user]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        TextView textView = findViewById(R.id.textView);
+        if (user != null) {
+            textView.setText("sisällä");
+
+            // User is signed in
+        } else {
+            textView.setText("Ei kirjautunut");
+            // No user is signed in
+        }
+        // [END check_current_user]
+    }
+```
+
+* Myös onCreate() - metodiin kuuntelija tilamuutoksille
+```java
+        //osa2
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                Log.d(TAG, "tilamuuttui");
+                if (user != null) {
+                    // Sign in logic here.
+                }
+            }
+        };
+```
+* Tästä voi jatkaa...
