@@ -1,5 +1,5 @@
 # FirebaseAutentikointi2019
-Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja testauksen autentikointiin ja tietokantaan. **Osa 2** käsittelee autetnikoinnin tilatietojen tarkastelua.
+Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja testauksen autentikointiin ja tietokantaan. **Osa 2** käsittelee autentikoinnin tilatietojen tarkastelua.
 
 ## Oheismateriaali ja muut huomiot
 * [https://firebase.google.com/docs/auth/android/password-auth](https://firebase.google.com/docs/auth/android/password-auth)
@@ -30,9 +30,9 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
 
 ## Firebase rules
 * Pari erilaista esimerkkiä: 
-* Ensimmäinen vaatii kirjautumisen ja tunnistettuja käyttäjiä voidaan manuaalisesti lisät listaan. 
+* Ensimmäinen vaatii kirjautumisen ja tunnistettuja käyttäjiä voidaan manuaalisesti lisätä listaan. 
 * Toinen vaatii kirjautumisen jotta tietoa voidaan kirjoittaa 
-* Realtime database rules
+* Realtime database rules -esimerkki User UID avoista. (omat User UID arvot löytyy Firebase Authentication sivulta  tai esimerkiksi koodilla user.getUid()    )
 ```python
   {
   "rules": {
@@ -87,8 +87,8 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         TextView textView = findViewById(R.id.textView);
         if (user != null) {
-            textView.setText("sisällä");
-
+            textView.setText("sisällä"+user.getEmail());
+            Log.d(TAG, user.getUid());
             // User is signed in
         } else {
             textView.setText("Ei kirjautunut");

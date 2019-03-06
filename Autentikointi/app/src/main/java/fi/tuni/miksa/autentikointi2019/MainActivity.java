@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 Log.d(TAG, "tilamuuttui");
                 if (user != null) {
+
                     // Sign in logic here.
                 }
             }
@@ -143,8 +144,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         TextView textView = findViewById(R.id.textView);
         if (user != null) {
-            textView.setText("sisällä");
-
+            textView.setText("sisällä "+user.getEmail());
+            Log.d(TAG, user.getEmail());
+            Log.d(TAG, user.getUid());
             // User is signed in
         } else {
             textView.setText("Ei kirjautunut");
