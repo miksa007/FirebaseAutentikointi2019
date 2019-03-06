@@ -32,22 +32,40 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
 * Pari erilaista esimerkkiä: 
 * Ensimmäinen vaatii kirjautumisen ja tunnistettuja käyttäjiä voidaan manuaalisesti lisätä listaan. 
 * Toinen vaatii kirjautumisen jotta tietoa voidaan kirjoittaa 
+* Realtime database Kaikki avoinna
+```python
+    {
+      "rules": {
+        ".read": true,
+        ".write":true
+      }
+    }
+```
+* Realtime database - Vain kirjautuneet käyttäjä kirjoittaa
+```python
+    {
+      "rules": {
+        ".read": true,
+        ".write":"auth != null"
+      }
+    }
+```
 * Realtime database rules -esimerkki User UID avoista. (omat User UID arvot löytyy Firebase Authentication sivulta  tai esimerkiksi koodilla user.getUid()    )
 ```python
-  {
-  "rules": {
-  	"users": {
-      "BEJaspxmfNcp0Z811V7H1voxZTu1": {
-        ".write": true,
-        ".read":true
-      },
-       "pNju3xZuN0Ze4gW0OGQew0MOR2k1": {
-        ".write": true,
-        ".read":true
-      } 
-    }   
-  }
-}
+    {
+      "rules": {
+  	    "users": {
+          "BEJaspxmfNcp0Z811V7H1voxZTu1": {
+            ".write": true,
+            ".read":true
+          },
+          "pNju3xZuN0Ze4gW0OGQew0MOR2k1": {
+            ".write": true,
+            ".read":true
+          } 
+        }   
+      }
+    }
 ```
 * Cloud Firestore database rules
 ```python
