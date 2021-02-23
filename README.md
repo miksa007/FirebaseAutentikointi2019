@@ -13,25 +13,25 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
 * Lisätään google-services.json tiedosto mukaan android studio -projektiin
 * Build.gradle -tiedostojen muokkaus (Firebase ohjeen mukaan)
 * Project-level build.gradle (<project>/build.gradle):
-```python
-    classpath 'com.google.gms:google-services:4.0.1' 
-```
+
 * App-level build.gradle (<project>/<app-module>/build.gradle):
 ```python 
-    implementation 'com.google.firebase:firebase-core:16.0.1'
-    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
-    ...
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+
+```
+* Huomioi yllä: versionumerointi automaattisesti käytettäessä firebase-bom -kirjastoa
+* Huomioi gradlen loppuun  
+```python
     apply plugin: 'com.google.gms.google-services'
 ```
-* Huomioi yllä: implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
 * Lisää komponentit activity_main.xml tiedostoon (3 nappulaa).
 * seuraillaan oheismateriaalin vaiheita ja lisäillään koodia MainActivity.java tiedostoon.
 * Kaikki //Osa 1 -kommentilla mukaan omaan sovellukseen
 
 ## Firebase rules
-* Pari erilaista esimerkkiä: 
-* Ensimmäinen vaatii kirjautumisen ja tunnistettuja käyttäjiä voidaan manuaalisesti lisätä listaan. 
-* Toinen vaatii kirjautumisen jotta tietoa voidaan kirjoittaa 
+* Pari erilaista esimerkkiä:   
 * Realtime database Kaikki avoinna
 ```python
     {
@@ -50,7 +50,7 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
       }
     }
 ```
-* Realtime database rules -esimerkki User UID avoista. (omat User UID arvot löytyy Firebase Authentication sivulta  tai esimerkiksi koodilla user.getUid()    )
+* Realtime database rules -esimerkki User UID arvoista. (omat User UID arvot löytyy Firebase Authentication sivulta  tai esimerkiksi koodilla user.getUid()    )
 ```python
     {
       "rules": {
@@ -68,6 +68,7 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
     }
 ```
 * Cloud Firestore database rules
+* Tietojen luku on mahdollinen, mutta kirjoittamiseen vaaditaan kirjautuminen
 ```python
     service cloud.firestore {
       match /databases/{database}/documents {
@@ -79,6 +80,7 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
 ```
 
 * **Valmis testaukseen**
+* Firebase consolissa muista enabloida authentication osassa sähköpostikirjautuminen 
 * LOG IN -nappula kysyy sähköpostiosoitteen, nimen ja salasanan. Ja kirjautuu Firebaseen.
 * Jos kaikki meni oikein niin [https://console.firebase.google.com](https://console.firebase.google.com) Authentication ja Users. Listassa pitäisi näkyä antamasi tiedot...
 * Jos ei näy - niin LogCat:stä etsimään virhettä.
@@ -130,4 +132,5 @@ Tutoriaali autentikoinnin lisäykseen. **Osa1** käsittelee yhteyden luonnin ja 
             }
         };
 ```
+* Tämä dokumentti on päivitetty 2021 - koodia ei
 * Tästä voi jatkaa...
